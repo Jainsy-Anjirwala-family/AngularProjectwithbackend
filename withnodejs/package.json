@@ -1,0 +1,26 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "create by Jainsy Anjirwala in node js",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jainsy-Anjirwala-family/AngularwithBackEndnodejs.git"
+  },
+  "author": "Jainsy Anjirwala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jainsy-Anjirwala-family/AngularwithBackEndnodejs/issues"
+  },
+  "homepage": "https://github.com/Jainsy-Anjirwala-family/AngularwithBackEndnodejs#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "nodejs": "file:",
+    "underscore": "^1.13.7"
+  }
+}
