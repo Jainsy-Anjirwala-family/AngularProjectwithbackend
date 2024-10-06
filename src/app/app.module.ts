@@ -97,6 +97,8 @@ import { CardModule } from 'primeng/card';
 import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
+import { AngularFireModule } from '@angular/fire/compat';
+import { env } from '../assets/env';
 
 @NgModule({
   declarations: [
@@ -198,7 +200,8 @@ import { MessageService } from 'primeng/api';
     AnimateModule,
     CardModule,
     InputIconModule,
-    IconFieldModule
+    IconFieldModule,
+    AngularFireModule.initializeApp(env.firebaseConfig)
   ],
   providers: [
     provideClientHydration(),
