@@ -1,0 +1,103 @@
+
+<p-toast />
+<p-confirmDialog />
+<div class="marg-20">
+  <div class="row">
+      <div class="col-2">
+          <button type="button" class="btn btn-primary" (click)="emitdata({'eventType': 'save'})">Submit</button>
+      </div>
+      <div class="col-2">
+          <button type="button" class="btn btn-primary" (click)="emitdata({'eventType': 'add'})"><i class="fa fa-solid fa-plus"></i>&nbsp; Add</button>
+      </div>
+  </div>
+  @if(dataDetail && dataDetail.showErrorMsg){
+      <div class="col-12 text-danger" >
+          {{dataDetail.showMsg}}
+      </div>
+  }
+  @for (item of dataDetails; track item.name) {
+      <div class="row" >
+          <div class="col-3">
+             <label>Name:</label> 
+             <input type="text" [(ngModel)]="item.name" class="form-control" placeholder="Enter Name"> 
+          </div>
+          <div class="col-3">
+              <label>Hobbies:</label> 
+              <input type="text" [(ngModel)]="item.hobbies" class="form-control" placeholder="Enter Your Hobbies"> 
+          </div>
+          <div class="col-3">
+              <label>Mobile NO:</label> 
+              <input type="number" [(ngModel)]="item.number" class="form-control" placeholder="Enter Your Mobile No"> 
+          </div>
+      </div>
+  }
+</div>
+<div class="row">
+  @if(dataDetail && dataDetail.dataSource && dataDetail.dataSource.length > 0){
+    <div class="col-6">
+      <h1>Added Recorded</h1>
+      <p-table [columns]="dataDetail.gridParams" [value]="dataDetail.dataSource" [tableStyle]="{ 'width': '100%' }">
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  @for (cols of columns; track cols.header) {
+                      <th>
+                          {{ cols.header }}
+                      </th>
+                  }
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr>
+                  @for (cols of columns; track cols.header) {
+                      <td *ngIf="cols && cols.field !== 'action'; else showText">
+                        <input type="{{cols.inputType}}" class="form-control" placeholder="Enter value" *ngIf="rowData && rowData.isEditable; else nonEditable" [(ngModel)]="rowData[cols.field]">
+                        <ng-template #nonEditable>
+                          {{ rowData[cols.field] }}
+                        </ng-template>
+                      </td>
+                      <ng-template #showText>
+                          <td *ngIf="rowData && rowData.isEditable; else nonEditableIcons">
+                            <span *ngFor="let item of cols.nonEditableIcon" (click)="emitdata({'eventType': 'iconName', 'eventData': item, 'rowData': rowData})" class="margr-10 pointer">
+                              <i class="{{item.icon}}"></i>
+                            </span>
+                          </td>
+                          <ng-template #nonEditableIcons>
+                            <td>
+                              <span *ngFor="let item of cols.editableIcon" (click)="emitdata({'eventType': 'iconName', 'eventData': item, 'rowData': rowData})" class="margr-10 pointer">
+                                <i class="{{item.icon}}"></i>
+                              </span>
+                            </td>
+                          </ng-template>
+                      </ng-template>
+                  }
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+  }
+  @if(dataDetail && dataDetail.deletedDataSource && dataDetail.deletedDataSource.length > 0){
+    <div class="col-6">
+      <h1>Deleted Recorded</h1>
+      <p-table [columns]="dataDetail.gridParams" [value]="dataDetail.deletedDataSource" [tableStyle]="{ 'width': '100%' }">
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  @for (cols of columns; track cols.header) {
+                      <th *ngIf="cols && cols.field !== 'action'">
+                          {{ cols.header }}
+                      </th>
+                  }
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-row let-columns="columns">
+              <tr>
+                  @for (cols of columns; track cols.header) {
+                      <td *ngIf="cols && cols.field !== 'action'">
+                          {{ row[cols.field] }}
+                      </td>
+                  }
+              </tr>
+          </ng-template>
+      </p-table>
+    </div>
+  }
+</div>
